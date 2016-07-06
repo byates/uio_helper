@@ -1,6 +1,9 @@
 libuio -- light-wight library to access UIO devices
 ---------------------------------------------------
 
+This repository is a copy of Stephan Linz version but setup to
+build with Eclipse as a cross compile for ARM.
+
 Copyright (C) 2007 Hans J. Koch
 Copyright (C) 2010 Stephan Linz
 
