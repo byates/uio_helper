@@ -21,6 +21,10 @@
 #ifndef __UIO_HELPER_H__
 #define __UIO_HELPER_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
 /* convensions */
 
 #define UIO_MAX_NAME_SIZE       64
@@ -37,26 +41,26 @@
 #define MAX_UIO_MAPS    5
 
 struct uio_map_t {
-	unsigned long addr;
-	int size;
-	int mmap_result;
-	void* internal_addr;
+    unsigned long addr;
+    int size;
+    int mmap_result;
+    void* internal_addr;
 };
 
 struct uio_dev_attr_t {
-	char name[ UIO_MAX_NAME_SIZE ];
-	char value[ UIO_MAX_NAME_SIZE ];
-	struct uio_dev_attr_t *next;
+    char name[ UIO_MAX_NAME_SIZE ];
+    char value[ UIO_MAX_NAME_SIZE ];
+    struct uio_dev_attr_t *next;
 };
 
 struct uio_info_t {
-	int uio_num;
-	struct uio_map_t maps[ MAX_UIO_MAPS ];
-	unsigned long event_count;
-	char name[ UIO_MAX_NAME_SIZE ];
-	char version[ UIO_MAX_NAME_SIZE ];
-	struct uio_dev_attr_t *dev_attrs;
-	struct uio_info_t* next;  /* for linked list */
+    int uio_num;
+    struct uio_map_t maps[ MAX_UIO_MAPS ];
+    unsigned long event_count;
+    char name[ UIO_MAX_NAME_SIZE ];
+    char version[ UIO_MAX_NAME_SIZE ];
+    struct uio_dev_attr_t *dev_attrs;
+    struct uio_info_t* next;  /* for linked list */
 };
 
 /* function prototypes */
@@ -86,5 +90,9 @@ void uio_free_info(struct uio_info_t* info);
 
 struct uio_info_t* uio_find_devices(int filter_num);
 struct uio_info_t* uio_find_devices_byname(const char *filter_name);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __UIO_HELPER_H__ */
