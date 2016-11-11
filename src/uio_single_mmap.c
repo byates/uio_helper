@@ -29,25 +29,28 @@
 #include "uio_helper.h"
 
 void* uio_single_mmap(struct uio_info_t* info, int map_num, int fd)
-{
-	if (!fd) return NULL;
-	info->maps[map_num].mmap_result = UIO_MMAP_NOT_DONE;
-	if (info->maps[map_num].size <= 0) return NULL;
-	info->maps[map_num].mmap_result = UIO_MMAP_FAILED;
-	info->maps[map_num].internal_addr =
-		mmap(
-			NULL,
-			info->maps[map_num].size,
-			PROT_READ | PROT_WRITE,
-			MAP_SHARED,
-			fd,
-			map_num*getpagesize()
-		);
+    {
+    if (!fd) return NULL;
+    info->maps[map_num].mmap_result = UIO_MMAP_NOT_DONE;
+    if (info->maps[map_num].size <= 0) return NULL;
+    info->maps[map_num].mmap_result = UIO_MMAP_FAILED;
+    info->maps[map_num].internal_addr = mmap(NULL,
+                                             info->maps[map_num].size,
+                                             PROT_READ | PROT_WRITE,
+                                             MAP_SHARED,
+                                             fd,
+                                             map_num * getpagesize()
+                                             );
 
-	if (info->maps[map_num].internal_addr != MAP_FAILED) {
-		info->maps[map_num].mmap_result = UIO_MMAP_OK;
-		return info->maps[map_num].internal_addr;
-	}
+    if (info->maps[map_num].internal_addr != MAP_FAILED)
+        {
+        info->maps[map_num].mmap_result = UIO_MMAP_OK;
+        return info->maps[map_num].internal_addr;
+        }
+    else
+        {
+        printf("UIO_ERROR: mmap[%i] returned %i when size was %i.\n", map_num, errno, info->maps[map_num].size);
+        }
 
-	return NULL;
-}
+    return NULL;
+    }

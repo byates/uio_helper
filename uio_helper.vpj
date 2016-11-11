@@ -1,0 +1,176 @@
+<!DOCTYPE Project SYSTEM "http://www.slickedit.com/dtd/vse/10.0/vpj.dtd">
+<Project
+    Version="10.0"
+    VendorName="SlickEdit"
+    TemplateName="GNU C/C++"
+    WorkingDir="."
+    BuildSystem="automakefile"
+    BuildMakeFile="Makefile">
+    <Config
+        Name="LinaroArmDebug"
+        Type="gnuc"
+        DebugCallbackName="gdb"
+        Version="1"
+        OutputFile="%rplib%rn.lib"
+        CompilerConfigName="Linaro Cross Compiler ARM"
+        Defines="">
+        <Menu>
+            <Target
+                Name="Compile"
+                MenuCaption="&amp;Compile"
+                Dialog="_gnuc_options_form Compile"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                OutputExts="*.o"
+                SaveOption="SaveCurrent"
+                RunFromDir="%rw"
+                ClearProcessBuffer="1">
+                <Exec
+                    CmdLine='"%(CROSS_COMPILE)gcc" -c %xup %defd -O0 -g3 -fPIC %~other -o "%bd%n%oe" %i %f'
+                    OtherOptions="-mcpu=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=hard"/>
+            </Target>
+            <Target
+                Name="Link"
+                MenuCaption="&amp;Link"
+                ShowOnMenu="Never"
+                Dialog="_gnuc_options_form Link"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveCurrent"
+                RunFromDir="%rw">
+                <Exec CmdLine='ar -rs %xup "%o" %f'/>
+            </Target>
+            <Target
+                Name="Build"
+                MenuCaption="&amp;Build"
+                Dialog="_gnuc_options_form Compile"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw"
+                ClearProcessBuffer="1">
+                <Exec CmdLine='"%(VSLICKBIN1)vsbuild" "%w" "%r" -t build'/>
+            </Target>
+            <Target
+                Name="Rebuild"
+                MenuCaption="&amp;Rebuild"
+                Dialog="_gnuc_options_form Compile"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw"
+                ClearProcessBuffer="1">
+                <Exec CmdLine='"%(VSLICKBIN1)vsbuild" "%w" "%r" -t rebuild'/>
+            </Target>
+            <Target
+                Name="Debug"
+                MenuCaption="&amp;Debug"
+                Dialog="_gnuc_options_form Run/Debug"
+                BuildFirst="1"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveNone"
+                RunFromDir="%rw">
+                <Exec CmdLine='vsdebugio -prog "%o"'/>
+            </Target>
+            <Target
+                Name="Execute"
+                MenuCaption="E&amp;xecute"
+                Dialog="_gnuc_options_form Run/Debug"
+                BuildFirst="1"
+                CaptureOutputWith="ProcessBuffer"
+                Deletable="0"
+                SaveOption="SaveWorkspaceFiles"
+                RunFromDir="%rw">
+                <Exec CmdLine='"%o"'/>
+            </Target>
+            <Target
+                Name="dash"
+                MenuCaption="-"
+                Deletable="0">
+                <Exec/>
+            </Target>
+            <Target
+                Name="GNU C Options"
+                MenuCaption="GNU C &amp;Options..."
+                ShowOnMenu="HideIfNoCmdLine"
+                Deletable="0"
+                SaveOption="SaveNone">
+                <Exec
+                    CmdLine="gnucoptions"
+                    Type="Slick-C"/>
+            </Target>
+        </Menu>
+        <Includes>
+            <Include Dir="/soc_dev/common/uio_helper/src/"/>
+        </Includes>
+        <Libs PreObjects="0">
+        </Libs>
+        <List Name="GNUC Options">
+            <Item
+                Name="LinkerOutputType"
+                Value="StaticLibrary"/>
+        </List>
+        <PostBuildCommands>
+            <Exec CmdLine="./post_build.sh %rplib%rn.so"/>
+        </PostBuildCommands>
+    </Config>
+    <Files>
+        <Folder
+            Name="Source Files"
+            Filters="*.c;*.C;*.cc;*.cpp;*.cp;*.cxx;*.c++;*.prg;*.pas;*.dpr;*.asm;*.s;*.bas;*.java;*.cs;*.sc;*.e;*.cob;*.html;*.rc;*.tcl;*.py;*.pl;*.d;*.m;*.mm;*.go;*.groovy;*.gsh"
+            GUID="{E9631CDF-9F2B-40B8-A1EA-89F7BF3B6208}">
+            <F N="src/uio_find_devices.c"/>
+            <F N="src/uio_find_devices_byname.c"/>
+            <F N="src/uio_free.c"/>
+            <F N="src/uio_get_all_info.c"/>
+            <F N="src/uio_get_device_attributes.c"/>
+            <F N="src/uio_get_event_count.c"/>
+            <F N="src/uio_get_mem_addr.c"/>
+            <F N="src/uio_get_mem_size.c"/>
+            <F N="src/uio_get_name.c"/>
+            <F N="src/uio_get_version.c"/>
+            <F N="src/uio_line_from_file.c"/>
+            <F N="src/uio_mmap.c"/>
+            <F N="src/uio_munmap.c"/>
+            <F N="src/uio_num_from_filename.c"/>
+            <F N="src/uio_single_mmap.c"/>
+            <F N="src/uio_single_munmap.c"/>
+        </Folder>
+        <Folder
+            Name="Header Files"
+            Filters="*.h;*.H;*.hh;*.hpp;*.hxx;*.h++;*.inc;*.cpy;*.if"
+            GUID="{8909FD7D-D941-4CE9-9B67-1403D591CA52}">
+            <F N="src/uio_helper.h"/>
+        </Folder>
+        <Folder
+            Name="Scripts"
+            Filters="*.sh"
+            GUID="{3574DC98-70E7-4FC8-87A0-F976D4056B72}">
+            <F N="post_build.sh"/>
+        </Folder>
+        <Folder
+            Name="Other Files"
+            Filters=""
+            GUID="{372D9CC7-9494-4306-BC06-9C4C7D7DD2EB}">
+            <F
+                N="Makefile"
+                Type="Makefile"/>
+        </Folder>
+    </Files>
+    <EsdRestore>
+        <ProjectFileState
+            state0='BUFFER: BN="../common/uio_helper/post_build.sh"""""'
+            state1='BI: MA=1 74 1  TABS=1 9  WWS=9 IWT=1 ST=8 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Bourne Shell	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=1 LCF=0 CAPS=0 E=70 ESBU2=-1 CL="" SC="" SCE= SCU= ALM=0 FWRM=0 HMRE=0 HMRBW=0 SPCWT=0 SWF=2'
+            state2="VIEW: LN=.0 CL=9 LE=0 CX=8 CY=0 WI=5 BI=1 HT=0 HN=0 HF=0 HC=4"
+            state3='BUFFER: BN="../common/uio_helper/Makefile"""""'
+            state4='BI: MA=1 74 1  TABS=1 9  WWS=9 IWT=1 ST=8 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Makefile	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=4 LCF=6 CAPS=0 E=70 ESBU2=-1 CL="" SC="" SCE= SCU= ALM=0 FWRM=0 HMRE=0 HMRBW=0 SPCWT=0 SWF=2'
+            state5="VIEW: LN=.1684 CL=9 LE=0 CX=8 CY=21 WI=5 BI=8 HT=0 HN=0 HF=0 HC=4"
+            state6='WINDOW: 1 22 1643 1332 0 0 N  WF=0 WT=3 "Ubuntu Mono,16,0,1" DID=0'
+            state7='BUFFER: BN="../common/uio_helper/post_build.sh"""""'
+            state8="VIEW: LN=.0 CL=9 LE=0 CX=8 CY=0 WI=213 BI=1 HT=0 HN=0 HF=0 HC=4"
+            state9='WINDOW: 1 22 1643 1332 0 0 N  WF=0 WT=2 "Ubuntu Mono,16,0,1" DID=0'
+            state10='BUFFER: BN="../common/uio_helper/Makefile"""""'
+            state11="VIEW: LN=.1684 CL=9 LE=0 CX=8 CY=21 WI=397 BI=8 HT=0 HN=0 HF=0 HC=4"/>
+    </EsdRestore>
+</Project>
