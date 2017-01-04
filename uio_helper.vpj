@@ -26,7 +26,7 @@
                 RunFromDir="%rw"
                 ClearProcessBuffer="1">
                 <Exec
-                    CmdLine='"%(CROSS_COMPILE)gcc" -c %xup %defd -O0 -g3 -fPIC %~other -o "%bd%n%oe" %i %f'
+                    CmdLine='"%(CROSS_COMPILE)gcc" -c %xup %defd -O3 -fPIC %~other -o "%bd%n%oe" %i %f'
                     OtherOptions="-mcpu=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=hard"/>
             </Target>
             <Target
@@ -38,7 +38,7 @@
                 Deletable="0"
                 SaveOption="SaveCurrent"
                 RunFromDir="%rw">
-                <Exec CmdLine='ar -rs %xup "%o" %f'/>
+                <Exec CmdLine='"%(CROSS_COMPILE)ar" -rs %xup "%o" %f'/>
             </Target>
             <Target
                 Name="Build"
@@ -161,16 +161,16 @@
     <EsdRestore>
         <ProjectFileState
             state0='BUFFER: BN="../common/uio_helper/post_build.sh"""""'
-            state1='BI: MA=1 74 1  TABS=1 9  WWS=9 IWT=1 ST=8 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Bourne Shell	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=1 LCF=0 CAPS=0 E=70 ESBU2=-1 CL="" SC="" SCE= SCU= ALM=0 FWRM=0 HMRE=0 HMRBW=0 SPCWT=0 SWF=2'
+            state1='BI: MA=1 74 1  TABS=1 9  WWS=9 IWT=1 ST=8 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Bourne Shell	HM=0 MF=33554432 TL=0 MLL=0 ASE=0 LNL=1 LCF=0 CAPS=0 E=70 ESBU2=-1 CL="" SC="" SCE= SCU= ALM=0 FWRM=0 HMRE=0 HMRBW=0 SPCWT=0 SWF=2'
             state2="VIEW: LN=.0 CL=9 LE=0 CX=8 CY=0 WI=5 BI=1 HT=0 HN=0 HF=0 HC=4"
             state3='BUFFER: BN="../common/uio_helper/Makefile"""""'
-            state4='BI: MA=1 74 1  TABS=1 9  WWS=9 IWT=1 ST=8 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Makefile	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=4 LCF=6 CAPS=0 E=70 ESBU2=-1 CL="" SC="" SCE= SCU= ALM=0 FWRM=0 HMRE=0 HMRBW=0 SPCWT=0 SWF=2'
-            state5="VIEW: LN=.1684 CL=9 LE=0 CX=8 CY=21 WI=5 BI=8 HT=0 HN=0 HF=0 HC=4"
-            state6='WINDOW: 1 22 1643 1332 0 0 N  WF=0 WT=3 "Ubuntu Mono,16,0,1" DID=0'
+            state4='BI: MA=1 74 1  TABS=1 9  WWS=9 IWT=1 ST=8 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Makefile	HM=0 MF=117441056 TL=0 MLL=0 ASE=0 LNL=4 LCF=6 CAPS=0 E=70 ESBU2=-1 CL="" SC="" SCE= SCU= ALM=0 FWRM=0 HMRE=0 HMRBW=0 SPCWT=0 SWF=2'
+            state5="VIEW: LN=.0 CL=1 LE=0 CX=0 CY=0 WI=5 BI=394 HT=0 HN=0 HF=0 HC=4"
+            state6='WINDOW: 1 22 1388 1038 0 0 N  WF=0 WT=3 "Ubuntu Mono,16,0,1" DID=0'
             state7='BUFFER: BN="../common/uio_helper/post_build.sh"""""'
-            state8="VIEW: LN=.0 CL=9 LE=0 CX=8 CY=0 WI=213 BI=1 HT=0 HN=0 HF=0 HC=4"
-            state9='WINDOW: 1 22 1643 1332 0 0 N  WF=0 WT=2 "Ubuntu Mono,16,0,1" DID=0'
+            state8="VIEW: LN=.0 CL=9 LE=0 CX=8 CY=0 WI=747 BI=1 HT=0 HN=0 HF=0 HC=4"
+            state9='WINDOW: 1 22 1388 1038 0 0 N  WF=0 WT=2 "Ubuntu Mono,16,0,1" DID=0'
             state10='BUFFER: BN="../common/uio_helper/Makefile"""""'
-            state11="VIEW: LN=.1684 CL=9 LE=0 CX=8 CY=21 WI=397 BI=8 HT=0 HN=0 HF=0 HC=4"/>
+            state11="VIEW: LN=.1659 CL=9 LE=0 CX=13 CY=21 WI=789 BI=394 HT=0 HN=0 HF=0 HC=4"/>
     </EsdRestore>
 </Project>

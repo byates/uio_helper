@@ -37,8 +37,8 @@ ALL_OBJ=$(OUTDIR)/uio_find_devices.o \
 	$(OUTDIR)/uio_num_from_filename.o $(OUTDIR)/uio_single_mmap.o \
 	$(OUTDIR)/uio_single_munmap.o 
 
-COMPILE="$(CROSS_COMPILE)gcc" -c   -O0 -g3 -fPIC -mcpu=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=hard -o "$(OUTDIR)/$(*F).o" $(CFG_INC) $<
-LINK=ar -rs  "$(OUTFILE)" $(OBJ)
+COMPILE="$(CROSS_COMPILE)gcc" -c   -O3 -fPIC -mcpu=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=hard -o "$(OUTDIR)/$(*F).o" $(CFG_INC) $<
+LINK="$(CROSS_COMPILE)ar" -rs  "$(OUTFILE)" $(OBJ)
 
 # Pattern rules
 $(OUTDIR)/%.o : src/%.c
