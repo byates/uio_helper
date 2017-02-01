@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source files">
+      <UniqueIdentifier>{f8646b62-7c4f-4348-840d-980a8a6648b5}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header files">
+      <UniqueIdentifier>{769bb605-6a3a-4643-b643-f664b4d33bb4}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource files">
+      <UniqueIdentifier>{b114d1c4-2640-42f0-a4e7-8981587585d2}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Make files">
+      <UniqueIdentifier>{bab5fa28-65d8-4c20-ac74-0519d915a1e5}</UniqueIdentifier>
+      <Extensions>*.mak</Extensions>
+    </Filter>
+    <Filter Include="VisualGDB settings">
+      <UniqueIdentifier>{7048ca30-73e2-4abe-a53b-316cebc0fb60}</UniqueIdentifier>
+      <Extensions>*.vgdbsettings</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile" />
+    <None Include="debug.mak">
+      <Filter>Make files</Filter>
+    </None>
+    <None Include="uio_helper-Debug.vgdbsettings">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+    <None Include="release.mak">
+      <Filter>Make files</Filter>
+    </None>
+    <None Include="uio_helper-Release.vgdbsettings">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\uio_find_devices.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uio_find_devices_byname.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uio_free.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uio_get_all_info.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uio_get_device_attributes.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uio_get_event_count.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uio_get_mem_addr.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uio_get_mem_size.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uio_get_name.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uio_get_version.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uio_line_from_file.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uio_mmap.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uio_munmap.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uio_num_from_filename.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uio_single_mmap.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uio_single_munmap.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\uio_helper.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
