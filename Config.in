@@ -1,0 +1,4 @@
+config BR2_PACKAGE_LIBUIO_HELPER
+	bool "uio_helper: static library for accesing UIO devices"
+	help
+	  Simple library to ease accesing UIO devices.
