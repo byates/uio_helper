@@ -27,7 +27,7 @@ extern "C" {
 
 /* convensions */
 
-#define UIO_MAX_NAME_SIZE       64
+#define UIO_MAX_NAME_SIZE       256
 #define UIO_MAX_NUM             255
 
 #define UIO_INVALID_SIZE        -1
