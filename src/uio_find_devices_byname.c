@@ -18,66 +18,63 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
+#include <dirent.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <dirent.h>
 #include <string.h>
-
-#include <sys/types.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include "uio_helper.h"
 
-extern int __uio_line_from_file(char *filename, char *linebuf);
+extern int __uio_line_from_file(char* filename, char* linebuf);
 extern int __uio_num_from_filename(char* name);
 
-static struct uio_info_t* __uio_info_byname(char* name, const char *filter_name)
-{
-	struct uio_info_t* info;
-	char linebuf[UIO_MAX_NAME_SIZE];
-	char filename[255];
+static struct uio_info_t* __uio_info_byname(char* name, const char* filter_name) {
+    struct uio_info_t* info;
+    char linebuf[UIO_MAX_NAME_SIZE];
+    char filename[255];
 
-	snprintf(filename, sizeof(filename), "/sys/class/uio/%s/name", name);
-	if (__uio_line_from_file(filename, linebuf))
-		return NULL;
+    snprintf(filename, sizeof(filename), "/sys/class/uio/%s/name", name);
+    if (__uio_line_from_file(filename, linebuf))
+        return NULL;
 
-	if (strncmp(linebuf, filter_name, UIO_MAX_NAME_SIZE))
-		return NULL;
+    if (strncmp(linebuf, filter_name, UIO_MAX_NAME_SIZE))
+        return NULL;
 
-	info = malloc(sizeof(struct uio_info_t));
-	if (!info)
-		return NULL;
-	memset(info,0,sizeof(struct uio_info_t));
-	info->uio_num = __uio_num_from_filename(name);
+    info = malloc(sizeof(struct uio_info_t));
+    if (!info)
+        return NULL;
+    memset(info, 0, sizeof(struct uio_info_t));
+    info->uio_num = __uio_num_from_filename(name);
 
-	return info;
+    return info;
 }
 
-struct uio_info_t* uio_find_devices_byname(const char *filter_name)
-{
-	struct dirent **namelist;
-	struct uio_info_t *infolist = NULL, *infp, *last;
-	int n;
+struct uio_info_t* uio_find_devices_byname(const char* filter_name) {
+    struct dirent** namelist;
+    struct uio_info_t *infolist = NULL, *infp, *last;
+    int n;
 
-	n = scandir("/sys/class/uio", &namelist, 0, alphasort);
-	if (n < 0)
-		return NULL;
+    n = scandir("/sys/class/uio", &namelist, 0, alphasort);
+    if (n < 0)
+        return NULL;
 
-	while(n--) {
-		infp = __uio_info_byname(namelist[n]->d_name, filter_name);
-		free(namelist[n]);
-		if (!infp)
-			continue;
-		if (!infolist)
-			infolist = infp;
-		else
-			last->next = infp;
-		last = infp;
-	}
-	free(namelist);
+    while (n--) {
+        infp = __uio_info_byname(namelist[n]->d_name, filter_name);
+        free(namelist[n]);
+        if (!infp)
+            continue;
+        if (!infolist)
+            infolist = infp;
+        else
+            last->next = infp;
+        last = infp;
+    }
+    free(namelist);
 
-	return infolist;
+    return infolist;
 }

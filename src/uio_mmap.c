@@ -23,10 +23,10 @@
 
 #include "uio_helper.h"
 
-void uio_mmap(struct uio_info_t* info, int fd)
-{
-	int map_num;
-	if (!fd) return;
-	for (map_num= 0; map_num < MAX_UIO_MAPS; map_num++)
-		uio_single_mmap(info, map_num, fd);
+void uio_mmap(struct uio_info_t* info, int fd) {
+    int map_num;
+    if (!fd)
+        return;
+    for (map_num = 0; map_num < MAX_UIO_MAPS; map_num++)
+        uio_single_mmap(info, map_num, fd);
 }

@@ -18,23 +18,21 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
+#include <dirent.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <dirent.h>
 #include <string.h>
-
-#include <sys/types.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include "uio_helper.h"
 
-extern int __uio_line_from_file(char *filename, char *linebuf);
+extern int __uio_line_from_file(char* filename, char* linebuf);
 
-static int __uio_dev_attr_filter(char *filename)
-{
+static int __uio_dev_attr_filter(char* filename) {
     struct stat filestat;
 
     if (lstat(filename, &filestat))
@@ -44,25 +42,22 @@ static int __uio_dev_attr_filter(char *filename)
     return 0;
 }
 
-int uio_get_device_attributes(struct uio_info_t* info)
-{
-    struct dirent **namelist;
+int uio_get_device_attributes(struct uio_info_t* info) {
+    struct dirent** namelist;
     struct uio_dev_attr_t *attr, *last;
     char fullname[300];
     int n;
 
     last = NULL;
     info->dev_attrs = NULL;
-    snprintf(fullname, sizeof(fullname),
-         "/sys/class/uio/uio%d/device", info->uio_num);
+    snprintf(fullname, sizeof(fullname), "/sys/class/uio/uio%d/device", info->uio_num);
     n = scandir(fullname, &namelist, 0, alphasort);
     if (n < 0)
         return -1;
 
-    while(n--) {
-        snprintf(fullname, sizeof(fullname),
-             "/sys/class/uio/uio%d/device/%s",
-            info->uio_num, namelist[n]->d_name);
+    while (n--) {
+        snprintf(fullname, sizeof(fullname), "/sys/class/uio/uio%d/device/%s", info->uio_num,
+                 namelist[n]->d_name);
         if (!__uio_dev_attr_filter(fullname))
             continue;
         attr = malloc(sizeof(struct uio_dev_attr_t));

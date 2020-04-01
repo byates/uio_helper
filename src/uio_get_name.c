@@ -23,13 +23,11 @@
 
 #include "uio_helper.h"
 
-extern int __uio_line_from_file(char *filename, char *linebuf);
+extern int __uio_line_from_file(char* filename, char* linebuf);
 
-int uio_get_name(struct uio_info_t* info)
-{
-	char filename[64];
-	snprintf(filename, sizeof(filename),
-		 "/sys/class/uio/uio%d/name", info->uio_num);
+int uio_get_name(struct uio_info_t* info) {
+    char filename[64];
+    snprintf(filename, sizeof(filename), "/sys/class/uio/uio%d/name", info->uio_num);
 
-	return __uio_line_from_file(filename, info->name);
+    return __uio_line_from_file(filename, info->name);
 }

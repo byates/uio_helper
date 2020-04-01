@@ -20,16 +20,13 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
-
 #include <sys/mman.h>
 
 #include "uio_helper.h"
 
-inline void uio_single_munmap(struct uio_info_t* info, int map_num)
-    {
-    if (info->maps[map_num].mmap_result == UIO_MMAP_OK)
-        {
+inline void uio_single_munmap(struct uio_info_t* info, int map_num) {
+    if (info->maps[map_num].mmap_result == UIO_MMAP_OK) {
         munmap(info->maps[map_num].internal_addr, info->maps[map_num].size);
         info->maps[map_num].mmap_result = UIO_MMAP_NOT_DONE;
-        }
     }
+}

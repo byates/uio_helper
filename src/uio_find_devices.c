@@ -18,61 +18,58 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
+#include <dirent.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <dirent.h>
 #include <string.h>
-
-#include <sys/types.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include "uio_helper.h"
 
 extern int __uio_num_from_filename(char* name);
 
-static struct uio_info_t* __uio_info_from_name(char* name, int filter_num)
-{
-	struct uio_info_t* info;
-	int num = __uio_num_from_filename(name);
-	if (num < 0)
-		return NULL;
-	if ((filter_num >= 0) && (num != filter_num))
-		return NULL;
+static struct uio_info_t* __uio_info_from_name(char* name, int filter_num) {
+    struct uio_info_t* info;
+    int num = __uio_num_from_filename(name);
+    if (num < 0)
+        return NULL;
+    if ((filter_num >= 0) && (num != filter_num))
+        return NULL;
 
-	info = malloc(sizeof(struct uio_info_t));
-	if (!info)
-		return NULL;
-	memset(info,0,sizeof(struct uio_info_t));
-	info->uio_num = num;
+    info = malloc(sizeof(struct uio_info_t));
+    if (!info)
+        return NULL;
+    memset(info, 0, sizeof(struct uio_info_t));
+    info->uio_num = num;
 
-	return info;
+    return info;
 }
 
-struct uio_info_t* uio_find_devices(int filter_num)
-{
-	struct dirent **namelist;
-	struct uio_info_t *infolist = NULL, *infp, *last;
-	int n;
+struct uio_info_t* uio_find_devices(int filter_num) {
+    struct dirent** namelist;
+    struct uio_info_t *infolist = NULL, *infp, *last;
+    int n;
 
-	n = scandir("/sys/class/uio", &namelist, 0, alphasort);
-	if (n < 0)
-		return NULL;
+    n = scandir("/sys/class/uio", &namelist, 0, alphasort);
+    if (n < 0)
+        return NULL;
 
-	while(n--) {
-		infp = __uio_info_from_name(namelist[n]->d_name, filter_num);
-		free(namelist[n]);
-		if (!infp)
-			continue;
-		if (!infolist)
-			infolist = infp;
-		else
-			last->next = infp;
-		last = infp;
-	}
-	free(namelist);
+    while (n--) {
+        infp = __uio_info_from_name(namelist[n]->d_name, filter_num);
+        free(namelist[n]);
+        if (!infp)
+            continue;
+        if (!infolist)
+            infolist = infp;
+        else
+            last->next = infp;
+        last = infp;
+    }
+    free(namelist);
 
-	return infolist;
+    return infolist;
 }

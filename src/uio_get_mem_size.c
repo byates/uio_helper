@@ -23,19 +23,20 @@
 
 #include "uio_helper.h"
 
-int uio_get_mem_size(struct uio_info_t* info, int map_num)
-{
+int uio_get_mem_size(struct uio_info_t* info, int map_num) {
     int ret;
     char filename[64];
-    if (map_num >= MAX_UIO_MAPS) return -1;
+    if (map_num >= MAX_UIO_MAPS)
+        return -1;
     info->maps[map_num].size = UIO_INVALID_SIZE;
-    snprintf(filename, sizeof(filename),
-         "/sys/class/uio/uio%d/maps/map%d/size",
-        info->uio_num, map_num);
-    FILE* file = fopen(filename,"r");
-    if (!file) return -1;
-    ret = fscanf(file,"0x%x",&info->maps[map_num].size);
+    snprintf(filename, sizeof(filename), "/sys/class/uio/uio%d/maps/map%d/size", info->uio_num,
+             map_num);
+    FILE* file = fopen(filename, "r");
+    if (!file)
+        return -1;
+    ret = fscanf(file, "0x%x", &info->maps[map_num].size);
     fclose(file);
-    if (ret<0) return -2;
+    if (ret < 0)
+        return -2;
     return 0;
 }

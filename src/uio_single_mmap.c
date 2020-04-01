@@ -18,39 +18,32 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <errno.h>
 #include <string.h>
-#include <unistd.h>
-
 #include <sys/mman.h>
+#include <unistd.h>
 
 #include "uio_helper.h"
 
-void* uio_single_mmap(struct uio_info_t* info, int map_num, int fd)
-    {
-    if (!fd) return NULL;
+void* uio_single_mmap(struct uio_info_t* info, int map_num, int fd) {
+    if (!fd)
+        return NULL;
     info->maps[map_num].mmap_result = UIO_MMAP_NOT_DONE;
-    if (info->maps[map_num].size <= 0) return NULL;
+    if (info->maps[map_num].size <= 0)
+        return NULL;
     info->maps[map_num].mmap_result = UIO_MMAP_FAILED;
-    info->maps[map_num].internal_addr = mmap(NULL,
-                                             info->maps[map_num].size,
-                                             PROT_READ | PROT_WRITE,
-                                             MAP_SHARED,
-                                             fd,
-                                             map_num * getpagesize()
-                                             );
+    info->maps[map_num].internal_addr = mmap(NULL, info->maps[map_num].size, PROT_READ | PROT_WRITE,
+                                             MAP_SHARED, fd, map_num * getpagesize());
 
-    if (info->maps[map_num].internal_addr != MAP_FAILED)
-        {
+    if (info->maps[map_num].internal_addr != MAP_FAILED) {
         info->maps[map_num].mmap_result = UIO_MMAP_OK;
         return info->maps[map_num].internal_addr;
-        }
-    else
-        {
-        printf("UIO_ERROR: mmap[%i] returned %i when size was %i.\n", map_num, errno, info->maps[map_num].size);
-        }
+    } else {
+        printf("UIO_ERROR: mmap[%i] returned %i when size was %i.\n", map_num, errno,
+               info->maps[map_num].size);
+    }
 
     return NULL;
-    }
+}

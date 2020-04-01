@@ -23,26 +23,24 @@
 
 #include "uio_helper.h"
 
-void uio_free_dev_attrs(struct uio_info_t* info)
-{
-	struct uio_dev_attr_t *p1, *p2;
-	p1 = info->dev_attrs;
-	while (p1) {
-		p2 = p1->next;
-		free(p1);
-		p1 = p2;
-	}
-	info->dev_attrs = NULL;
+void uio_free_dev_attrs(struct uio_info_t* info) {
+    struct uio_dev_attr_t *p1, *p2;
+    p1 = info->dev_attrs;
+    while (p1) {
+        p2 = p1->next;
+        free(p1);
+        p1 = p2;
+    }
+    info->dev_attrs = NULL;
 }
 
-void uio_free_info(struct uio_info_t* info)
-{
-	struct uio_info_t *p1,*p2;
-	p1 = info;
-	while (p1) {
-		uio_free_dev_attrs(p1);
-		p2 = p1->next;
-		free(p1);
-		p1 = p2;
-	}
+void uio_free_info(struct uio_info_t* info) {
+    struct uio_info_t *p1, *p2;
+    p1 = info;
+    while (p1) {
+        uio_free_dev_attrs(p1);
+        p2 = p1->next;
+        free(p1);
+        p1 = p2;
+    }
 }

@@ -23,19 +23,25 @@
 
 #include "uio_helper.h"
 
-int uio_get_all_info(struct uio_info_t* info)
-{
-	int i;
-	if (!info)
-		return -1;
-	if ((info->uio_num < 0)||(info->uio_num > UIO_MAX_NUM))
-		return -1;
-	for (i = 0; i < MAX_UIO_MAPS; i++) {
-		uio_get_mem_size(info, i);
-		uio_get_mem_addr(info, i);
-	}
-	uio_get_event_count(info);
-	uio_get_name(info);
-	uio_get_version(info);
-	return 0;
+int uio_get_all_info(struct uio_info_t* info) {
+    int i;
+    if (!info) {
+        return -1;
+    }
+    if ((info->uio_num < 0) || (info->uio_num > UIO_MAX_NUM)) {
+        return -1;
+    }
+    info->map_count = 0;
+    for (i = 0; i < MAX_UIO_MAPS; i++) {
+        uio_get_mem_size(info, i);
+        uio_get_mem_addr(info, i);
+        if (info->maps[i].size >= 0) {
+           info->map_count++;
+        }
+    }
+    uio_get_event_count(info);
+    uio_get_name(info);
+    uio_get_version(info);
+    uio_get_device_attributes(info);
+    return 0;
 }

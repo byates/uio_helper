@@ -23,17 +23,17 @@
 
 #include "uio_helper.h"
 
-int uio_get_event_count(struct uio_info_t* info)
-{
+int uio_get_event_count(struct uio_info_t* info) {
     int ret;
     char filename[64];
     info->event_count = 0;
-    snprintf(filename, sizeof(filename),
-         "/sys/class/uio/uio%d/event", info->uio_num);
-    FILE* file = fopen(filename,"r");
-    if (!file) return -1;
-    ret = fscanf(file,"%ld",&info->event_count);
+    snprintf(filename, sizeof(filename), "/sys/class/uio/uio%d/event", info->uio_num);
+    FILE* file = fopen(filename, "r");
+    if (!file)
+        return -1;
+    ret = fscanf(file, "%ld", &info->event_count);
     fclose(file);
-    if (ret<0) return -2;
+    if (ret < 0)
+        return -2;
     return 0;
 }

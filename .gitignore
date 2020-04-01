@@ -4,4 +4,5 @@
 CodeDB/
 *.old
 *.dat
-
+libuio_helper.a
+test/test_uio_helper

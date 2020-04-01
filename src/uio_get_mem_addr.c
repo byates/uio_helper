@@ -23,19 +23,20 @@
 
 #include "uio_helper.h"
 
-int uio_get_mem_addr(struct uio_info_t* info, int map_num)
-{
-	int ret;
-	char filename[64];
-	if (map_num >= MAX_UIO_MAPS) return -1;
-	info->maps[map_num].addr = UIO_INVALID_ADDR;
-	snprintf(filename, sizeof(filename),
-		 "/sys/class/uio/uio%d/maps/map%d/addr",
-		info->uio_num, map_num);
-	FILE* file = fopen(filename,"r");
-	if (!file) return -1;
-	ret = fscanf(file,"0x%lx",&info->maps[map_num].addr);
-	fclose(file);
-	if (ret<0) return -2;
-	return 0;
+int uio_get_mem_addr(struct uio_info_t* info, int map_num) {
+    int ret;
+    char filename[64];
+    if (map_num >= MAX_UIO_MAPS)
+        return -1;
+    info->maps[map_num].addr = UIO_INVALID_ADDR;
+    snprintf(filename, sizeof(filename), "/sys/class/uio/uio%d/maps/map%d/addr", info->uio_num,
+             map_num);
+    FILE* file = fopen(filename, "r");
+    if (!file)
+        return -1;
+    ret = fscanf(file, "0x%lx", &info->maps[map_num].addr);
+    fclose(file);
+    if (ret < 0)
+        return -2;
+    return 0;
 }
