@@ -3,7 +3,7 @@ SOURCES := $(wildcard src/*.c)
 
 APP_BUILD_FLAGS := -std=gnu11 -Wl,-gc-sections -mcpu=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=hard
 APP_COMPILE_FLAGS := -Isrc
-APP_COMPILE_FLAGS += -O0 -ggdb3 -Wall -Wno-unknown-pragmas -fmessage-length=0
+APP_COMPILE_FLAGS += -O3 -g0 -Wall -Wno-unknown-pragmas -fmessage-length=0
 # -MMD   : output dependencies but leave out system files
 # -MP    : Adds dummy rules to works around header file issues during make
 # -MF    : Specifies which file to write dependencies to
