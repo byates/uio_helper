@@ -40,6 +40,7 @@ static int __uio_line_from_file(char* filename, char* linebuf) {
         return -1;
     }
     s = fgets(linebuf, UIO_MAX_NAME_SIZE, file);
+    fclose(file);
     if (!s) {
         return -2;
     }
